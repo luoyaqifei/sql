@@ -14,10 +14,10 @@
     * Open a private window in your browser. Copy and paste the link to your pull request into the address bar. Make sure you can see your pull request properly. This helps the technical facilitator and learning support staff review your submission easily.
 
 Checklist:
-- [ ] Create a branch called `assignment-two`.
-- [ ] Ensure that the repository is public.
-- [ ] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
-- [ ] Verify that the link is accessible in a private browser window.
+- [x] Create a branch called `assignment-two`.
+- [x] Ensure that the repository is public.
+- [x] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
+- [x] Verify that the link is accessible in a private browser window.
 
 If you encounter any difficulties or have questions, please don't hesitate to reach out to our team via our Slack at `#cohort-6-help`. Our Technical Facilitators and Learning Support staff are here to help you navigate any challenges.
 
@@ -45,17 +45,46 @@ There are several tools online you can use, I'd recommend [Draw.io](https://www.
 
 **HINT:** You do not need to create any data for this prompt. This is a logical model (ERD) only. 
 
+---
+My logical model is here
+![bookstore logical model](assignment2-bookstore_logical_model.png)
+
+---
+
 #### Prompt 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+---
+The updated logical model with employee shifts is here
+![bookstore logical model with shifts](assignment2-bookstore_logical_model_2.png)
+
+---
 
 #### Prompt 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2? 
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
-```
-Your answer...
-```
+my answer:
+---
+
+Add a `CUSTOMER_ADDRESS` table, use the same customer id to map it with the CUSTOMER table with a 1:1 relationship
+
+While for the update strategy, we have two options that affect the design:
+
+- Option 1
+
+When a customer changes their address, we update the address value for the customer id in the `CUSTOMER_ADDRESS` table. 
+
+This is the overwrite strategy, corrsponding to **type 1**. In this case, we don't need extra columns, just `address` and `customer_id`.
+
+- Option 2
+
+When a customer changes their address, we create a new entry for the customer id in the `CUSTOMER_ADDRESS` table. 
+
+This can retain changes, and it's **type 2**. However, we need to have extra columns, either `address_update_time` or `version`. For any queries, we need to take multiple versions into account too.
+
+---
 
 ***
 
